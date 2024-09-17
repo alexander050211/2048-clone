@@ -1,41 +1,36 @@
 import './App.css';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import viteLogo from '/vite.svg';
+import Board from './components/Board';
+import GameResult from './components/GameResult';
+import Restart from './components/Restart';
+import Score from './components/ScoreBoard';
+import type { BoardType, GameStatus } from './types';
 
-import reactLogo from './assets/react.svg';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [board] = useState<BoardType>([]);
+  const [score, setScore] = useState<number>(0);
+  const [bestScore] = useState<number>(0);
+  const [result, setResult] = useState<GameStatus>('playing');
+
+  function initGame() {
+
+    setScore(0);
+    setResult('playing');
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() => {
-            setCount(count + 1);
-          }}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='app'>
+      <h1>2048(128) Game</h1>
+      <Score score={score} bestScore={bestScore}/>
+      <Board board={board} />
+      <Restart onRestart={initGame}/>
+      {result !== 'playing' && (
+        <GameResult result={result} onRestart={initGame} />
+       )}
+    </div>
   );
 }
 
