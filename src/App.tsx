@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Board from './components/Board';
 import GameResult from './components/GameResult';
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     initGame();
-    
+
   }, []);
 
   return (
