@@ -1,13 +1,13 @@
 type RestartProps = {
-    onRestart: () => void;
+  onRestart: () => void;
 };
 
 function Restart({ onRestart }: RestartProps) {
-    return (
-        <div className="restart">
-            <button onClick={onRestart}>New Game</button>
-        </div>
-    );
+  return (
+    <div className="restart">
+      <button onClick={onRestart}>New Game</button>
+    </div>
+  );
 }
 
 export default Restart;

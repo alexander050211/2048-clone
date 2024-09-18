@@ -1,14 +1,9 @@
 type TileProps = {
-    value: number;
-}
+  value: number;
+};
 
 function Tile({ value }: TileProps) {
-
-    return (
-        <div className="tile">
-            {value !== 0 ? value : ''}
-        </div>
-    );
+  return <div className="tile">{value !== 0 ? value : ''}</div>;
 }
 
 export default Tile;

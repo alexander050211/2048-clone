@@ -9,7 +9,6 @@ import Score from './components/ScoreBoard';
 import { initBoard } from './MoveLogic';
 import type { BoardType, GameStatus } from './types';
 
-
 function App() {
   const [board, setBoard] = useState<BoardType>([]);
   const [score, setScore] = useState<number>(0);
@@ -25,18 +24,17 @@ function App() {
 
   useEffect(() => {
     initGame();
-
   }, []);
 
   return (
-    <div className='app'>
+    <div className="app">
       <h1>128 Game</h1>
-      <Score score={score} bestScore={bestScore}/>
+      <Score score={score} bestScore={bestScore} />
       <Board board={board} />
-      <Restart onRestart={initGame}/>
+      <Restart onRestart={initGame} />
       {result !== 'playing' && (
         <GameResult result={result} onRestart={initGame} />
-       )}
+      )}
     </div>
   );
 }
