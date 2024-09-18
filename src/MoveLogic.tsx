@@ -23,7 +23,7 @@ export function addNumber(board: BoardType): void {
     const randomIndex = Math.floor(Math.random() * options.length);
     const spot = options[randomIndex] as { x: number; y: number };
     const localBoard = board[spot.x] as number[];
-    localBoard[spot.y] = 2;
+    localBoard[spot.y] = Math.random() > 0.5 ? 2 : 4;
     board[spot.x] = localBoard;
   }
 }
