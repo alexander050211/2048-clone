@@ -5,7 +5,7 @@ type RestartProps = {
 function Restart({ onRestart }: RestartProps) {
     return (
         <div className="restart">
-            <button onClick={onRestart}>Restart</button>
+            <button onClick={onRestart}>New Game</button>
         </div>
     );
 }

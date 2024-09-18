@@ -5,7 +5,7 @@ type TileProps = {
 function Tile({ value }: TileProps) {
 
     return (
-        <div>
+        <div className="tile">
             {value !== 0 ? value : ''}
         </div>
     );

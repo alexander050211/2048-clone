@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Board from './components/Board';
 import GameResult from './components/GameResult';
@@ -23,9 +23,14 @@ function App() {
     setResult('playing');
   }
 
+  useEffect(() => {
+    initGame();
+    
+  }, []);
+
   return (
     <div className='app'>
-      <h1>2048(128) Game</h1>
+      <h1>128 Game</h1>
       <Score score={score} bestScore={bestScore}/>
       <Board board={board} />
       <Restart onRestart={initGame}/>
