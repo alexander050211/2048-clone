@@ -3,8 +3,8 @@ type TileProps = {
 };
 
 function getTileClass(value: number): string {
-  if (value === 0) return 'tile';
-  return 'tile tile-${value}';
+  if (value === 0) return 'tile tile-empty';
+  return 'tile tile-' + value.toString();
 }
 
 function Tile({ value }: TileProps) {
