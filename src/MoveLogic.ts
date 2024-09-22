@@ -1,6 +1,6 @@
 import type { BoardType, Direction } from './types';
 
-export const BOARD_SIZE = 4;
+const BOARD_SIZE = 4;
 
 export function initBoard(): BoardType {
   const newBoard: BoardType = Array.from({ length: BOARD_SIZE }, () =>
@@ -11,7 +11,7 @@ export function initBoard(): BoardType {
   return newBoard;
 }
 
-export function addNumber(board: BoardType): void {
+function addNumber(board: BoardType): void {
   const options: { x: number; y: number }[] = [];
   board.forEach((row, i) => {
     row.forEach((cell, j) => {
@@ -94,10 +94,21 @@ function transposeBoard(board: BoardType): BoardType {
         localBoard[j] !== undefined &&
         localBoard[i]?.[j] !== undefined
       ) {
-        const tmp = localBoard[i]?.[j] !== undefined ? localBoard[i]?.[j] : 0 as number;
-        const tmp2= localBoard[j]?.[i] !== undefined ? localBoard[j]?.[i] : 0 as number;
-        localBoard[i][j] = tmp2;
-        localBoard[j][i] = tmp;
+        //const tmp = localBoard[i][j] !== undefined ? localBoard[i][j] : 0;
+        const tmpij = localBoard[i]?.[j];
+        if (tmpij === undefined) throw new Error();
+        const tmpji = localBoard[j]?.[i];
+        if (tmpji === undefined) throw new Error();
+        const tmpiRow = localBoard[i];
+        if (tmpiRow === undefined) throw new Error();
+        const tmpjRow = localBoard[j];
+        if (tmpjRow === undefined) throw new Error();
+
+        tmpiRow[j] = tmpji;
+        tmpjRow[i] = tmpij;
+
+        localBoard[i] = tmpiRow;
+        localBoard[j] = tmpjRow;
       }
     }
   }
