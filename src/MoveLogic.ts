@@ -94,10 +94,21 @@ function transposeBoard(board: BoardType): BoardType {
         localBoard[j] !== undefined &&
         localBoard[i]?.[j] !== undefined
       ) {
-        const tmp = localBoard[i][j] !== undefined ? localBoard[i][j] : 0;
-        localBoard[i][j] =
-          localBoard[j][i] !== undefined ? localBoard[j][i] : 0;
-        localBoard[j][i] = tmp;
+        //const tmp = localBoard[i][j] !== undefined ? localBoard[i][j] : 0;
+        const tmpij = localBoard[i]?.[j];
+        if (tmpij === undefined) throw new Error();
+        const tmpji = localBoard[j]?.[i];
+        if (tmpji === undefined) throw new Error();
+        const tmpiRow = localBoard[i];
+        if(tmpiRow===undefined) throw new Error();
+        const tmpjRow = localBoard[j];
+        if(tmpjRow===undefined) throw new Error();
+
+        tmpiRow[j] = tmpji;
+        tmpjRow[i] = tmpij;
+
+        localBoard[i] = tmpiRow;
+        localBoard[j] = tmpjRow;
       }
     }
   }
