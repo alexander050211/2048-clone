@@ -6,11 +6,11 @@ type GameResultProps = {
 };
 
 function GameResult({ result, onRestart }: GameResultProps) {
-  const message = result.toString() === 'win' ? 'You Win!' : 'Game Over';
+  const message = result.toString();
 
   return (
     <div className="game-result">
-      <div className="overlay-content">
+      <div>
         <h1>{message}</h1>
         <button onClick={onRestart}>Restart?</button>
       </div>

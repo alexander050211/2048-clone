@@ -6,6 +6,7 @@ export function initBoard(): BoardType {
   const newBoard: BoardType = Array.from({ length: BOARD_SIZE }, () =>
     Array<number>(BOARD_SIZE).fill(0),
   );
+
   addNumber(newBoard);
   addNumber(newBoard);
   return newBoard;
@@ -169,3 +170,4 @@ function checkGameOver(board: BoardType): boolean {
 function checkGameWin(board: BoardType): boolean {
   return board.some((row) => row.some((cell) => cell === 128));
 }
+
