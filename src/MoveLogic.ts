@@ -38,7 +38,7 @@ export function moveBoard(
   gameOver: boolean;
   gameWon: boolean;
 } {
-  const rotatedBoard = rotateBoard(board, direction);
+  const rotatedBoard = rotateBoard(board, direction, false);
   const { newBoard: movedBoard, moved, gainedScore } = slideBoard(rotatedBoard);
 
   let gameOver = false;
@@ -56,12 +56,12 @@ export function moveBoard(
 function rotateBoard(
   board: BoardType,
   direction: Direction,
-  reverse = false,
+  reverse: boolean,
 ): BoardType {
   let newBoard = board.map((row) => row.slice());
   const rotateCount = reverse
-    ? (4 - getRotateCount(direction)) % 4
-    : getRotateCount(direction);
+    ? getRotateCount(direction)
+    : (4 - getRotateCount(direction)) % 4;
   for (let i = 0; i < rotateCount; i++) {
     newBoard = transposeBoard(newBoard);
     newBoard = newBoard.map((row) => row.reverse());
@@ -72,25 +72,36 @@ function rotateBoard(
 function getRotateCount(direction: Direction): number {
   switch (direction) {
     case 'up':
-      return 0;
-    case 'left':
-      return 3;
-    case 'right':
       return 1;
-    case 'down':
+    case 'right':
       return 2;
+    case 'down':
+      return 3;
+    case 'left':
+      return 0;
     default:
       return 0;
   }
 }
 
 function transposeBoard(board: BoardType): BoardType {
-  return board.map((row) => {
-    let newRow = row.filter((val) => val !== 0);
-    const zeros = Array(BOARD_SIZE - newRow.length).fill(0);
-    newRow = newRow.concat(zeros);
-    return newRow;
-  });
+  const localBoard = board.map((row) => row.slice());
+
+  for (let i = 0; i < localBoard.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (
+        localBoard[i] !== undefined &&
+        localBoard[j] !== undefined &&
+        localBoard[i]?.[j] !== undefined
+      ) {
+        const tmp = localBoard[i][j] !== undefined ? localBoard[i][j] : 0;
+        localBoard[i][j] =
+          localBoard[j][i] !== undefined ? localBoard[j][i] : 0;
+        localBoard[j][i] = tmp;
+      }
+    }
+  }
+  return localBoard;
 }
 
 function slideBoard(board: BoardType): {
@@ -126,10 +137,19 @@ function slideBoard(board: BoardType): {
 function checkGameOver(board: BoardType): boolean {
   for (let i = 0; i < BOARD_SIZE; i++) {
     for (let j = 0; j < BOARD_SIZE; j++) {
-      if (j < BOARD_SIZE - 1 && board[i]?.[j] === board[i]?.[j + 1])
+      if (board[i][j] === 0) {
         return false;
-      if (i < BOARD_SIZE - 1 && board[i]?.[j] === board[i + 1]?.[j])
+      }
+    }
+  }
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let j = 0; j < BOARD_SIZE; j++) {
+      if (j < BOARD_SIZE - 1 && board[i][j] === board[i][j + 1]) {
         return false;
+      }
+      if (i < BOARD_SIZE - 1 && board[i][j] === board[i + 1][j]) {
+        return false;
+      }
     }
   }
   return true;
