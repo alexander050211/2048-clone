@@ -58,13 +58,29 @@ function rotateBoard(
   direction: Direction,
   reverse: boolean,
 ): BoardType {
-  let newBoard = board.map((row) => row.slice());
+  const newBoard = board.map((row) => row.slice());
   const rotateCount = reverse
     ? getRotateCount(direction)
     : (4 - getRotateCount(direction)) % 4;
   for (let i = 0; i < rotateCount; i++) {
-    newBoard = transposeBoard(newBoard);
-    newBoard = newBoard.map((row) => row.reverse());
+    const rotatedBoard: BoardType = [];
+    for (let x = 0; x < BOARD_SIZE; x++) {
+      const newRow: number[] = [];
+      for (let y = BOARD_SIZE - 1; y >= 0; y--) {
+        const ErrorCheck = newBoard[y];
+        if (ErrorCheck === undefined) throw new Error();
+        const value = ErrorCheck[x];
+        if (value === undefined) throw new Error();
+        newRow.push(value);
+      }
+      rotatedBoard.push(newRow);
+    }
+    newBoard.map((row, ii) => {
+      return row.map((cell, j) => {
+        return rotatedBoard.at(ii)?.at(j);
+        return cell;
+      });
+    });
   }
   return newBoard;
 }
@@ -82,41 +98,6 @@ function getRotateCount(direction: Direction): number {
     default:
       return 0;
   }
-}
-
-function transposeBoard(board: BoardType): BoardType {
-  const localBoard = board.map((row) => row.slice());
-
-  for (let i = 0; i < localBoard.length; i++) {
-    for (let j = 0; j < i; j++) {
-      if (
-        localBoard[i] !== undefined &&
-        localBoard[j] !== undefined &&
-        localBoard[i]?.[j] !== undefined
-      ) {
-        const tempij = localBoard.at(i)?.at(j) as number;
-        const tempji = localBoard.at(j)?.at(i) as number;
-
-        localBoard.map((row, ii) => {
-          return row.map((cell, jj) => {
-            if (ii === i && jj === j) {
-              return tempji;
-            }
-            return cell;
-          });
-        });
-        localBoard.map((row, ii) => {
-          return row.map((cell, jj) => {
-            if (ii === j && jj === i) {
-              return tempij;
-            }
-            return cell;
-          });
-        });
-      }
-    }
-  }
-  return localBoard;
 }
 
 function slideBoard(board: BoardType): {
