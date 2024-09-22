@@ -100,9 +100,9 @@ function transposeBoard(board: BoardType): BoardType {
         const tmpji = localBoard[j]?.[i];
         if (tmpji === undefined) throw new Error();
         const tmpiRow = localBoard[i];
-        if(tmpiRow===undefined) throw new Error();
+        if (tmpiRow === undefined) throw new Error();
         const tmpjRow = localBoard[j];
-        if(tmpjRow===undefined) throw new Error();
+        if (tmpjRow === undefined) throw new Error();
 
         tmpiRow[j] = tmpji;
         tmpjRow[i] = tmpij;
