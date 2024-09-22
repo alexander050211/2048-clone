@@ -72,11 +72,11 @@ function rotateBoard(
 function getRotateCount(direction: Direction): number {
   switch (direction) {
     case 'up':
-      return 1;
+      return 3;
     case 'right':
       return 2;
     case 'down':
-      return 3;
+      return 1;
     case 'left':
       return 0;
     default:
@@ -94,10 +94,25 @@ function transposeBoard(board: BoardType): BoardType {
         localBoard[j] !== undefined &&
         localBoard[i]?.[j] !== undefined
       ) {
-        const tmp = localBoard[i]?.[j] !== undefined ? localBoard[i]?.[j] : 0 as number;
-        const tmp2= localBoard[j]?.[i] !== undefined ? localBoard[j]?.[i] : 0 as number;
-        localBoard[i][j] = tmp2;
-        localBoard[j][i] = tmp;
+        const tempij = localBoard.at(i)?.at(j) as number;
+        const tempji = localBoard.at(j)?.at(i) as number;
+
+        localBoard.map((row, ii) => {
+          return row.map((cell, jj) => {
+            if (ii === i && jj === j) {
+              return tempji;
+            }
+            return cell;
+          });
+        });
+        localBoard.map((row, ii) => {
+          return row.map((cell, jj) => {
+            if (ii === j && jj === i) {
+              return tempij;
+            }
+            return cell;
+          });
+        });
       }
     }
   }
