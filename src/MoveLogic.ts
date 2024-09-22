@@ -94,9 +94,9 @@ function transposeBoard(board: BoardType): BoardType {
         localBoard[j] !== undefined &&
         localBoard[i]?.[j] !== undefined
       ) {
-        const tmp = localBoard[i][j] !== undefined ? localBoard[i][j] : 0;
-        localBoard[i][j] =
-          localBoard[j][i] !== undefined ? localBoard[j][i] : 0;
+        const tmp = localBoard[i]?.[j] !== undefined ? localBoard[i]?.[j] : 0 as number;
+        const tmp2= localBoard[j]?.[i] !== undefined ? localBoard[j]?.[i] : 0 as number;
+        localBoard[i][j] = tmp2;
         localBoard[j][i] = tmp;
       }
     }
@@ -137,17 +137,17 @@ function slideBoard(board: BoardType): {
 function checkGameOver(board: BoardType): boolean {
   for (let i = 0; i < BOARD_SIZE; i++) {
     for (let j = 0; j < BOARD_SIZE; j++) {
-      if (board[i][j] === 0) {
+      if (board[i]?.[j] === 0) {
         return false;
       }
     }
   }
   for (let i = 0; i < BOARD_SIZE; i++) {
     for (let j = 0; j < BOARD_SIZE; j++) {
-      if (j < BOARD_SIZE - 1 && board[i][j] === board[i][j + 1]) {
+      if (j < BOARD_SIZE - 1 && board[i]?.[j] === board[i]?.[j + 1]) {
         return false;
       }
-      if (i < BOARD_SIZE - 1 && board[i][j] === board[i + 1][j]) {
+      if (i < BOARD_SIZE - 1 && board[i]?.[j] === board[i + 1]?.[j]) {
         return false;
       }
     }
