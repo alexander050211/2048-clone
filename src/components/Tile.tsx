@@ -1,22 +1,10 @@
-import styles from './Tile.module.css';
-
 type TileProps = {
   value: number;
 };
 
 function getTileClass(value: number): string {
-  const baseClass = styles.tile;
-  if (baseClass === undefined || styles.tileEmpty === undefined) return ``;
-  if (value === 0) {
-    return `${baseClass} ${styles.tileEmpty}`;
-  }
-  if (value >= 128) {
-    if (styles.tile128 === undefined) return ``;
-    return `${baseClass} ${styles.tile128}`;
-  }
-  const valueClass = styles[`tile${value}` as keyof typeof styles];
-  if (valueClass === undefined) return ``;
-  return `${baseClass} ${valueClass}`;
+  if (value === 0) return 'tile tile-empty';
+  return 'tile tile-' + value.toString();
 }
 
 function Tile({ value }: TileProps) {

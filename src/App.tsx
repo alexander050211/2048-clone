@@ -1,6 +1,7 @@
+import './App.css';
+
 import { useEffect, useState } from 'react';
 
-import styles from './App.module.css';
 import Board from './components/Board';
 import GameResult from './components/GameResult';
 import Restart from './components/Restart';
@@ -15,18 +16,12 @@ function App() {
     Number(localStorage.getItem('bestScore') ?? 0),
   );
   const [result, setResult] = useState<GameStatus>('playing');
-  const [continues, setContinues] = useState<boolean>(false);
 
   function initGame() {
     const newBoard = initBoard();
     setBoard(newBoard);
     setScore(0);
     setResult('playing');
-    setContinues(false);
-  }
-
-  function handleContinue() {
-    setContinues(true);
   }
 
   useEffect(() => {
@@ -37,7 +32,7 @@ function App() {
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    if (result !== 'playing' && !continues) return;
+    if (result !== 'playing') return;
     let direction: Direction | undefined;
 
     switch (e.key) {
@@ -71,7 +66,7 @@ function App() {
         }
         return updatedScore;
       });
-      if (gameWon && !continues) {
+      if (gameWon) {
         setResult('win');
       } else if (gameOver) {
         setResult('loss');
@@ -80,18 +75,13 @@ function App() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>128 Game</div>
+    <div className="app">
+      <h1>128 Game</h1>
       <Score score={score} bestScore={bestScore} />
       <Board board={board} />
       <Restart onRestart={initGame} />
-      {((result === 'win' && !continues) || result === 'loss') && (
-        <GameResult
-          result={result}
-          continues={continues}
-          onRestart={initGame}
-          onContinue={handleContinue}
-        />
+      {result !== 'playing' && (
+        <GameResult result={result} onRestart={initGame} />
       )}
     </div>
   );

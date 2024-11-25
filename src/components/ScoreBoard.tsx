@@ -1,5 +1,3 @@
-import styles from './ScoreBoard.module.css';
-
 type ScoreBoardProps = {
   score: number;
   bestScore: number;
@@ -7,14 +5,14 @@ type ScoreBoardProps = {
 
 function ScoreBoard({ score, bestScore }: ScoreBoardProps) {
   return (
-    <div className={styles.container}>
-      <div className={styles.scoreBoard}>
-        <div className={styles.name}>Score</div>
-        <div className={styles.score}>{score}</div>
+    <div className="score-board">
+      <div className="score">
+        <div>Score</div>
+        <div>{score}</div>
       </div>
-      <div className={styles.scoreBoard}>
-        <div className={styles.name}>Best</div>
-        <div className={styles.score}>{bestScore}</div>
+      <div className="best-score">
+        <div>Best</div>
+        <div>{bestScore}</div>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import type { BoardType } from '../types';
-import styles from './Board.module.css';
 import Tile from './Tile';
 
 type BoardProps = {
@@ -8,9 +7,9 @@ type BoardProps = {
 
 function Board({ board }: BoardProps) {
   return (
-    <div className={styles.board}>
+    <div className="board">
       {board.map((row, i) => (
-        <div key={i} className={styles.boardRow}>
+        <div key={i} className="board-row">
           {row.map((value, j) => (
             <Tile key={i.toString() + '-' + j.toString()} value={value} />
           ))}
