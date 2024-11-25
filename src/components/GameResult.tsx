@@ -1,4 +1,5 @@
 import type { GameStatus } from '../types';
+import styles from './GameResult.module.css';
 
 type GameResultProps = {
   result: GameStatus;
@@ -9,8 +10,8 @@ function GameResult({ result, onRestart }: GameResultProps) {
   const message = result.toString() === 'win' ? 'You Win!' : 'Game Over';
 
   return (
-    <div className="game-result">
-      <div className="overlay-content">
+    <div className={styles.gameResult}>
+      <div className={styles.overlayContent}>
         <h1>{message}</h1>
         <button onClick={onRestart}>Restart?</button>
       </div>

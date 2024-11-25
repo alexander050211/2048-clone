@@ -1,7 +1,6 @@
-import './App.css';
-
 import { useEffect, useState } from 'react';
 
+import styles from './App.module.css';
 import Board from './components/Board';
 import GameResult from './components/GameResult';
 import Restart from './components/Restart';
@@ -75,8 +74,8 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <h1>128 Game</h1>
+    <div className={styles.container}>
+      <div className={styles.title}>128 Game</div>
       <Score score={score} bestScore={bestScore} />
       <Board board={board} />
       <Restart onRestart={initGame} />
