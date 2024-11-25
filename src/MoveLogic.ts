@@ -169,3 +169,6 @@ function checkGameOver(board: BoardType): boolean {
 function checkGameWin(board: BoardType): boolean {
   return board.some((row) => row.some((cell) => cell === 128));
 }
+
+export { slideBoard };
+export type { BoardType };
