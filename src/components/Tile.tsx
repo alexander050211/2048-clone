@@ -10,6 +10,10 @@ function getTileClass(value: number): string {
   if (value === 0) {
     return `${baseClass} ${styles.tileEmpty}`;
   }
+  if (value >= 128) {
+    if (styles.tile128 === undefined) return ``;
+    return `${baseClass} ${styles.tile128}`;
+  }
   const valueClass = styles[`tile${value}` as keyof typeof styles];
   if (valueClass === undefined) return ``;
   return `${baseClass} ${valueClass}`;

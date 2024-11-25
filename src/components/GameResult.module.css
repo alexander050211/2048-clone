@@ -37,3 +37,37 @@
 .overlayContent button:hover {
   background: #9e7e6c;
 }
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.continueButton,
+.restartButton {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.continueButton {
+  background: #f2b179;
+  color: #f9f6f2;
+}
+
+.continueButton:hover {
+  background: #f59563;
+}
+
+.restartButton {
+  background: #8f7a66;
+  color: #f9f6f2;
+}
+
+.restartButton:hover {
+  background: #9e7e6c;
+}

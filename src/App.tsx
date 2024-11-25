@@ -15,12 +15,18 @@ function App() {
     Number(localStorage.getItem('bestScore') ?? 0),
   );
   const [result, setResult] = useState<GameStatus>('playing');
+  const [continues, setContinues] = useState<boolean>(false);
 
   function initGame() {
     const newBoard = initBoard();
     setBoard(newBoard);
     setScore(0);
     setResult('playing');
+    setContinues(false);
+  }
+
+  function handleContinue() {
+    setContinues(true);
   }
 
   useEffect(() => {
@@ -31,7 +37,7 @@ function App() {
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    if (result !== 'playing') return;
+    if (result !== 'playing' && !continues) return;
     let direction: Direction | undefined;
 
     switch (e.key) {
@@ -65,7 +71,7 @@ function App() {
         }
         return updatedScore;
       });
-      if (gameWon) {
+      if (gameWon && !continues) {
         setResult('win');
       } else if (gameOver) {
         setResult('loss');
@@ -79,8 +85,13 @@ function App() {
       <Score score={score} bestScore={bestScore} />
       <Board board={board} />
       <Restart onRestart={initGame} />
-      {result !== 'playing' && (
-        <GameResult result={result} onRestart={initGame} />
+      {((result === 'win' && !continues) || result === 'loss') && (
+        <GameResult
+          result={result}
+          continues={continues}
+          onRestart={initGame}
+          onContinue={handleContinue}
+        />
       )}
     </div>
   );
